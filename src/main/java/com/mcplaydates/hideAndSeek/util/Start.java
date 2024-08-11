@@ -21,7 +21,7 @@ public class Start {
     ArrayList<Player> seekers;
     HideAndSeek hs;
     Game game;
-    Spawn spawn;
+    SpawnAndLobby spawnAndLobby;
     Location startLocation;
 
     ScoreboardManager manager;
@@ -31,17 +31,17 @@ public class Start {
     Team seekerTeam;
     boolean isHidingPhase;
     boolean PVP;
-    public Start(HideAndSeek hs, HSScoreboard hsScoreboard, Spawn spawn){
+    public Start(HideAndSeek hs, HSScoreboard hsScoreboard, SpawnAndLobby spawnAndLobby){
         this.hs = hs;
         this.hsScoreboard = hsScoreboard;
-        this.spawn = spawn;
+        this.spawnAndLobby = spawnAndLobby;
     }
 
     public void setGame(Game game){
         this.game = game;
     }
     public void startGame(Player hostPlayer){
-        startLocation = spawn.checkForSpawn();
+        startLocation = spawnAndLobby.checkForSpawn();
         if(startLocation == null){
             startLocation = hostPlayer.getLocation();
         }
@@ -118,6 +118,11 @@ public class Start {
         hiderTeam.removeEntry(player.getName());
         seekerTeam.removeEntry(player.getName());
         hsScoreboard.updateScoreboard(hiders.size(), seekers.size());
+
+        Location lobbyLocation = spawnAndLobby.checkForLobby();
+        if(lobbyLocation == null)
+            lobbyLocation = this.getStartLocation();
+        player.teleport(lobbyLocation);
 
         // Ensures there will be at least 1 seeker.
         if(seekers.isEmpty() && !hiders.isEmpty()){

@@ -11,14 +11,14 @@ public class CommandHs implements CommandExecutor{
     Game game;
     End end;
     Border border;
-    Spawn spawn;
+    SpawnAndLobby spawnAndLobby;
 
-    public CommandHs(Start start, Game game, End end, Border border, Spawn spawn){
+    public CommandHs(Start start, Game game, End end, Border border, SpawnAndLobby spawnAndLobby){
         this.start = start;
         this.game = game;
         this.end = end;
         this.border = border;
-        this.spawn = spawn;
+        this.spawnAndLobby = spawnAndLobby;
     }
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -69,17 +69,22 @@ public class CommandHs implements CommandExecutor{
                 player.sendMessage("Border has been erased!");
             }
             if(args.length > 0 && args[0].equalsIgnoreCase("setspawn") && player.isOp()){
-                spawn.setLocation(player.getLocation());
+                spawnAndLobby.setSpawnLocation(player.getLocation());
                 player.sendMessage("Spawn Set!");
             }
             if(args.length > 0 && args[0].equalsIgnoreCase("erasespawn") && player.isOp()){
-                spawn.eraseSpawn();
+                spawnAndLobby.eraseSpawn();
                 player.sendMessage("Spawn has been erased!");
             }
+            if(args.length > 0 && args[0].equalsIgnoreCase("setlobby") && player.isOp()){
+                spawnAndLobby.setLobbyLocation(player.getLocation());
+                player.sendMessage("Lobby Set!");
+            }
+            if(args.length > 0 && args[0].equalsIgnoreCase("eraselobby") && player.isOp()){
+                spawnAndLobby.eraseLobby();
+                player.sendMessage("Lobby has been erased!");
+            }
         }
-
-
-
         return true;
     }
 

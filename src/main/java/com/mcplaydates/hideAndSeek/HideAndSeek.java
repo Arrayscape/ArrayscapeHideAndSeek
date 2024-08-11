@@ -11,11 +11,11 @@ public final class HideAndSeek extends JavaPlugin {
     @Override
     public void onEnable() {
         Config config = new Config(this);
-        Spawn spawn = new Spawn(this, config);
+        SpawnAndLobby spawnAndLobby = new SpawnAndLobby(this, config);
         HSScoreboard scoreboard = new HSScoreboard(this);
-        Start start = new Start(this, scoreboard, spawn);
+        Start start = new Start(this, scoreboard, spawnAndLobby);
         Game game = new Game(this, start);
-        End end = new End(start, game, scoreboard);
+        End end = new End(start, game, scoreboard, spawnAndLobby);
         start.setGame(game);
 
         Border border = new Border(this, config);
@@ -25,7 +25,7 @@ public final class HideAndSeek extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new EntityHitListener(this, start, game, end), this);
         this.getServer().getPluginManager().registerEvents(new PlayerLeaveListener(game, end), this);
         this.getCommand("hs").setTabCompleter(new TabComplete());
-        this.getCommand("hs").setExecutor(new CommandHs(start, game, end, border, spawn));
+        this.getCommand("hs").setExecutor(new CommandHs(start, game, end, border, spawnAndLobby));
     }
 
     @Override
