@@ -26,10 +26,10 @@ public class CommandHs implements CommandExecutor{
             Player player = (Player) sender;
 
             if(args.length > 0 && args[0].equalsIgnoreCase("start") && player.isOp()){
-                if(Bukkit.getOnlinePlayers().size() <= 1){
-                    player.sendMessage("Cannot start the game. Too Few Players. (Minimum is 2)");
-                    return true;
-                }
+//                if(Bukkit.getOnlinePlayers().size() <= 1){
+//                    player.sendMessage("Cannot start the game. Too Few Players. (Minimum is 2)");
+//                    return true;
+//                }
                 player.sendMessage("Game Started");
                 border.startBorder();
 

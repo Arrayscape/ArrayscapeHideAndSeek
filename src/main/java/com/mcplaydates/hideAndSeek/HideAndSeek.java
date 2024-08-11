@@ -17,6 +17,7 @@ public final class HideAndSeek extends JavaPlugin {
         Game game = new Game(this, start);
         End end = new End(start, game, scoreboard, spawnAndLobby);
         start.setGame(game);
+        start.setEnd(end);
 
         Border border = new Border(this, config);
 

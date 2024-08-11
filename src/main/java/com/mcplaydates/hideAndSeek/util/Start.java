@@ -3,6 +3,7 @@ package com.mcplaydates.hideAndSeek.util;
 import com.mcplaydates.hideAndSeek.HideAndSeek;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -21,6 +22,7 @@ public class Start {
     ArrayList<Player> seekers;
     HideAndSeek hs;
     Game game;
+    End end;
     SpawnAndLobby spawnAndLobby;
     Location startLocation;
 
@@ -40,6 +42,9 @@ public class Start {
     public void setGame(Game game){
         this.game = game;
     }
+    public void setEnd(End end){
+        this.end = end;
+    }
     public void startGame(Player hostPlayer){
         startLocation = spawnAndLobby.checkForSpawn();
         if(startLocation == null){
@@ -53,6 +58,7 @@ public class Start {
         game.hidingPhaseStart();
         hsScoreboard.makeScoreBoard(board);
         hsScoreboard.updateScoreboard(hiders.size(), seekers.size());
+        end.checkGameOver();
     }
 
     private void makeTeams(){
@@ -73,10 +79,12 @@ public class Start {
         PVP = Bukkit.getWorlds().get(0).getPVP();
         Bukkit.getWorlds().get(0).setPVP(true);
 
-
-
         for(Player player : Bukkit.getOnlinePlayers()){
-            hiders.add(player);
+            System.out.println(player.getGameMode());
+            if(player.getGameMode() != GameMode.SPECTATOR){
+                hiders.add(player);
+                player.setGameMode(GameMode.ADVENTURE);
+            }
         }
         // Choose one hider to be a seeker
         makeRandomSeeker();
