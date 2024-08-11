@@ -1,5 +1,7 @@
-package com.mcplaydates.hideAndSeek.util;
+package com.mcplaydates.hideAndSeek.util.CoreGame;
 
+import com.mcplaydates.hideAndSeek.util.HSScoreboard;
+import com.mcplaydates.hideAndSeek.util.SpawnAndLobby;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

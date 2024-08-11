@@ -1,6 +1,9 @@
 package com.mcplaydates.hideAndSeek;
 
 import com.mcplaydates.hideAndSeek.util.*;
+import com.mcplaydates.hideAndSeek.util.CoreGame.End;
+import com.mcplaydates.hideAndSeek.util.CoreGame.Game;
+import com.mcplaydates.hideAndSeek.util.CoreGame.Start;
 import com.mcplaydates.hideAndSeek.util.Listeners.EntityHitListener;
 import com.mcplaydates.hideAndSeek.util.Listeners.MoveListener;
 import com.mcplaydates.hideAndSeek.util.Listeners.PlayerLeaveListener;

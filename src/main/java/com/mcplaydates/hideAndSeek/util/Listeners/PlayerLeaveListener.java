@@ -1,7 +1,7 @@
 package com.mcplaydates.hideAndSeek.util.Listeners;
 
-import com.mcplaydates.hideAndSeek.util.End;
-import com.mcplaydates.hideAndSeek.util.Game;
+import com.mcplaydates.hideAndSeek.util.CoreGame.End;
+import com.mcplaydates.hideAndSeek.util.CoreGame.Game;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;

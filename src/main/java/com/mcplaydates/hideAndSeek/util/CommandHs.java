@@ -1,6 +1,8 @@
 package com.mcplaydates.hideAndSeek.util;
 
-import org.bukkit.Bukkit;
+import com.mcplaydates.hideAndSeek.util.CoreGame.End;
+import com.mcplaydates.hideAndSeek.util.CoreGame.Game;
+import com.mcplaydates.hideAndSeek.util.CoreGame.Start;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

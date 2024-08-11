@@ -1,9 +1,9 @@
 package com.mcplaydates.hideAndSeek.util.Listeners;
 
 import com.mcplaydates.hideAndSeek.HideAndSeek;
-import com.mcplaydates.hideAndSeek.util.End;
-import com.mcplaydates.hideAndSeek.util.Game;
-import com.mcplaydates.hideAndSeek.util.Start;
+import com.mcplaydates.hideAndSeek.util.CoreGame.End;
+import com.mcplaydates.hideAndSeek.util.CoreGame.Game;
+import com.mcplaydates.hideAndSeek.util.CoreGame.Start;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
