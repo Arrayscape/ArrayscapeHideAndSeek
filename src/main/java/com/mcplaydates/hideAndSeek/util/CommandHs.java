@@ -25,6 +25,10 @@ public class CommandHs implements CommandExecutor{
             Player player = (Player) sender;
 
             if(args.length > 0 && args[0].equalsIgnoreCase("start") && player.isOp()){
+                if(Bukkit.getOnlinePlayers().size() <= 1){
+                    player.sendMessage("Cannot start the game. Too Few Players. (Minimum is 2)");
+                    return true;
+                }
                 player.sendMessage("Game Started");
                 game.setStartLocation(player.getLocation());
                 border.startBorder();
@@ -44,14 +48,13 @@ public class CommandHs implements CommandExecutor{
                 }
             }
             if(args.length > 0 && args[0].equalsIgnoreCase("exit")){
-                if(start.getIsHidingPhase() || game.getGameRunning()){
-                    start.removePlayer(player);
-                    end.checkGameOver();
-                    player.sendMessage("You have exited the game");
-                }else{
+                if(!(start.getIsHidingPhase() || game.getGameRunning())){
                     player.sendMessage("You are not in a game!");
+                    return true;
                 }
-
+                start.removePlayer(player);
+                end.checkGameOver();
+                player.sendMessage("You have exited the game");
             }
             if(args.length > 0 && args[0].equalsIgnoreCase("setcorner1") && player.isOp()){
                 border.setLocation(1, player.getLocation());
