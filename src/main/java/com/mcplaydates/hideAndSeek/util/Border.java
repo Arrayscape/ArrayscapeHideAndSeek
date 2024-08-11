@@ -6,48 +6,44 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public class Border {
     HideAndSeek hs;
-    FileConfiguration file;
     int minX;
     int maxX;
     int minZ;
     int maxZ;
     boolean isTrackingBorder = false;
-    public Border(HideAndSeek hs){
+    Config config;
+    public Border(HideAndSeek hs, Config config){
         this.hs = hs;
-        // Creates new config.yml from jar if it does not exist. Does not write over existing config.yml
-        hs.saveDefaultConfig();
-        file = hs.getConfig();
+        this.config = config;
     }
 
     public void setLocation(int numCorner, Location location){
         if(numCorner == 1){
-            file.set("corner1.x", location.getBlockX());
-            file.set("corner1.z", location.getBlockZ());
+            config.setConfig("corner1.x", location.getBlockX());
+            config.setConfig("corner1.z", location.getBlockZ());
         }else if(numCorner == 2){
-            file.set("corner2.x", location.getBlockX());
-            file.set("corner2.z", location.getBlockZ());
+            config.setConfig("corner2.x", location.getBlockX());
+            config.setConfig("corner2.z", location.getBlockZ());
         }
-        hs.saveConfig();
     }
 
     public void eraseBoarder(){
-        file.set("corner1.x", null);
-        file.set("corner1.z", null);
-        file.set("corner2.x", null);
-        file.set("corner2.z", null);
+        config.setConfig("corner1.x", null);
+        config.setConfig("corner1.z", null);
+        config.setConfig("corner2.x", null);
+        config.setConfig("corner2.z", null);
         isTrackingBorder = false;
-        hs.saveConfig();
     }
 
     public void startBorder(){
         // Check if border exists.
-        if(file.get("corner1.x") != null && file.get("corner1.z") != null &&
-                file.get("corner2.x") != null & file.get("corner2.z") != null){
+        if(config.getConfig("corner1.x") != null && config.getConfig("corner1.z") != null &&
+                config.getConfig("corner2.x") != null & config.getConfig("corner2.z") != null){
             isTrackingBorder = true;
-            minX = Math.min((int) file.get("corner1.x"), (int) file.get("corner2.x"));
-            maxX = Math.max((int) file.get("corner1.x"), (int) file.get("corner2.x"));
-            minZ = Math.min((int) file.get("corner1.z"), (int) file.get("corner2.z"));
-            maxZ = Math.max((int) file.get("corner1.z"), (int) file.get("corner2.z"));
+            minX = Math.min((int) config.getConfig("corner1.x"), (int) config.getConfig("corner2.x"));
+            maxX = Math.max((int) config.getConfig("corner1.x"), (int) config.getConfig("corner2.x"));
+            minZ = Math.min((int) config.getConfig("corner1.z"), (int) config.getConfig("corner2.z"));
+            maxZ = Math.max((int) config.getConfig("corner1.z"), (int) config.getConfig("corner2.z"));
         }
     }
 

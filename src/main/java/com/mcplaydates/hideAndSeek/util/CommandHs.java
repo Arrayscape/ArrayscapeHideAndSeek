@@ -11,13 +11,14 @@ public class CommandHs implements CommandExecutor{
     Game game;
     End end;
     Border border;
+    Spawn spawn;
 
-    public CommandHs(Start start, Game game, End end, Border border){
+    public CommandHs(Start start, Game game, End end, Border border, Spawn spawn){
         this.start = start;
         this.game = game;
         this.end = end;
         this.border = border;
-
+        this.spawn = spawn;
     }
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -30,11 +31,10 @@ public class CommandHs implements CommandExecutor{
                     return true;
                 }
                 player.sendMessage("Game Started");
-                game.setStartLocation(player.getLocation());
                 border.startBorder();
 
                 if(!border.getTrackingBorder() || border.isInBoarder(player.getLocation())){
-                    start.startGame();
+                    start.startGame(player);
                 }else{
                     player.sendMessage("You're not in the border!");
                 }
@@ -68,18 +68,16 @@ public class CommandHs implements CommandExecutor{
                 border.eraseBoarder();
                 player.sendMessage("Border has been erased!");
             }
-        }
-        else{
-            if(args.length > 0 && args[0].equalsIgnoreCase("start")){
-                game.setStartLocation(Bukkit.getOnlinePlayers().iterator().next().getLocation());
-                start.startGame();
+            if(args.length > 0 && args[0].equalsIgnoreCase("setspawn") && player.isOp()){
+                spawn.setLocation(player.getLocation());
+                player.sendMessage("Spawn Set!");
             }
-            if(args.length > 0 && args[0].equalsIgnoreCase("end")){
-                end.endGame();
-
+            if(args.length > 0 && args[0].equalsIgnoreCase("erasespawn") && player.isOp()){
+                spawn.eraseSpawn();
+                player.sendMessage("Spawn has been erased!");
             }
-
         }
+
 
 
         return true;

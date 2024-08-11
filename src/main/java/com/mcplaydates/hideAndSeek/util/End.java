@@ -32,7 +32,7 @@ public class End {
         for(Player player : Bukkit.getOnlinePlayers()){
             game.clearAllPotionEffects(player);
             player.sendTitle("Game Over!", "Everyone Was Found!", 10, 100, 20);
-            player.teleport(game.getStartLocation());
+            player.teleport(start.getStartLocation());
         }
     }
 }

@@ -8,7 +8,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class Game {
-    Location startLocation;
     HideAndSeek hs;
     Start start;
     final int HIDINGTIME = 60; // in seconds
@@ -59,14 +58,6 @@ public class Game {
     }
     public void setGameRunning(boolean gameRunning) {
         this.gameRunning = gameRunning;
-    }
-
-    public void setStartLocation(Location startLocation) {
-        this.startLocation = startLocation;
-    }
-
-    public Location getStartLocation() {
-        return startLocation;
     }
 
     public void clearAllPotionEffects(Player player){

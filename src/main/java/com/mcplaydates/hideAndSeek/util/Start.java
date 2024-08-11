@@ -3,6 +3,7 @@ package com.mcplaydates.hideAndSeek.util;
 import com.mcplaydates.hideAndSeek.HideAndSeek;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -20,6 +21,8 @@ public class Start {
     ArrayList<Player> seekers;
     HideAndSeek hs;
     Game game;
+    Spawn spawn;
+    Location startLocation;
 
     ScoreboardManager manager;
     Scoreboard board;
@@ -28,18 +31,23 @@ public class Start {
     Team seekerTeam;
     boolean isHidingPhase;
     boolean PVP;
-    public Start(HideAndSeek hs, HSScoreboard hsScoreboard){
+    public Start(HideAndSeek hs, HSScoreboard hsScoreboard, Spawn spawn){
         this.hs = hs;
         this.hsScoreboard = hsScoreboard;
+        this.spawn = spawn;
     }
 
     public void setGame(Game game){
         this.game = game;
     }
-    public void startGame(){
+    public void startGame(Player hostPlayer){
+        startLocation = spawn.checkForSpawn();
+        if(startLocation == null){
+            startLocation = hostPlayer.getLocation();
+        }
         for(Player player : Bukkit.getOnlinePlayers()){
             game.clearAllPotionEffects(player);
-            player.teleport(game.startLocation);
+            player.teleport(startLocation);
         }
         makeTeams();
         game.hidingPhaseStart();
@@ -117,7 +125,7 @@ public class Start {
             seekerTeam.addEntry(seeker.getName());
             seeker.setScoreboard(seekerTeam.getScoreboard());
             playerTeamMap.put(seeker.getName(), "seeker");
-            seeker.teleport(game.startLocation);
+            seeker.teleport(startLocation);
             if(isHidingPhase){
                 seeker.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 99999, 99));
             }
@@ -131,6 +139,10 @@ public class Start {
 
     public ArrayList<Player> getSeekers() {
         return seekers;
+    }
+
+    public Location getStartLocation(){
+        return startLocation;
     }
 
     public void setIsHidingPhase(boolean isHidingPhase){
