@@ -22,7 +22,11 @@ public class EntityHitListener implements Listener {
     }
     @EventHandler
     public void onHit(EntityDamageByEntityEvent event){
-        if(game.getGameRunning() && !start.getIsHidingPhase()) {
+        if(start.getIsHidingPhase()){
+            event.setCancelled(true);
+            return;
+        }
+        if(game.getGameRunning()) {
             if (event.getDamager() instanceof Player && event.getEntity() instanceof Player) {
                 Player attacker = (Player) event.getDamager();
                 Player defender = (Player) event.getEntity();

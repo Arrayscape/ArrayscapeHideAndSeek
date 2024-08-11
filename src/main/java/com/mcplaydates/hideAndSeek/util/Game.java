@@ -21,8 +21,6 @@ public class Game {
         start.setIsHidingPhase(true);
         for(Player player : start.getSeekers()){
             player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, HIDINGTIME*20, 5));
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, HIDINGTIME*20, 100));
-            player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, HIDINGTIME*20, 128)); // 128 is negative
             player.sendTitle("You are a Seeker!", "Close your eyes for 60 seconds", 10, HIDINGTIME*20, 20);
         }
         for(Player player : start.getHiders()){

@@ -24,10 +24,9 @@ public class MoveListener implements Listener {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event){
-        // REMOVED IN FAVOR OF SLOWNESS AND NEGATIVE JUMP BOOST TO CANCEL MOVEMENT.
-//        if(start.getIsHidingPhase() && start.isSeeker(event.getPlayer())){
-//            event.setCancelled(true);
-//        }
+        if(start.getIsHidingPhase() && start.isSeeker(event.getPlayer())){
+            event.setCancelled(true);
+        }
 
         if(border.getTrackingBorder() && (game.getGameRunning() || start.getIsHidingPhase())){
             // triggers when the player moves out of border.
