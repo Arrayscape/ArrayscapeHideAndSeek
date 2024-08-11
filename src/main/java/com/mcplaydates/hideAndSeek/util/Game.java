@@ -11,7 +11,7 @@ public class Game {
     Location startLocation;
     HideAndSeek hs;
     Start start;
-    final int HIDINGTIME = 5; // in seconds
+    final int HIDINGTIME = 60; // in seconds
     boolean gameRunning = false;
     public Game(HideAndSeek hs, Start start){
         this.hs = hs;
