@@ -1,0 +1,8 @@
+name: HideAndSeek
+version: '1.0'
+main: com.mcplaydates.hideAndSeek.HideAndSeek
+api-version: '1.21'
+commands:
+  hs:
+    description: All the commands for hide and seek.
+    usage: /<hs>
