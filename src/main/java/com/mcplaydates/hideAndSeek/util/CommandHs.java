@@ -44,9 +44,14 @@ public class CommandHs implements CommandExecutor{
                 }
             }
             if(args.length > 0 && args[0].equalsIgnoreCase("exit")){
-                start.removePlayer(player);
-                end.checkGameOver();
-                player.sendMessage("You have exited the game");
+                if(start.getIsHidingPhase() || game.getGameRunning()){
+                    start.removePlayer(player);
+                    end.checkGameOver();
+                    player.sendMessage("You have exited the game");
+                }else{
+                    player.sendMessage("You are not in a game!");
+                }
+
             }
             if(args.length > 0 && args[0].equalsIgnoreCase("setcorner1") && player.isOp()){
                 border.setLocation(1, player.getLocation());
