@@ -14,14 +14,14 @@ public final class HideAndSeek extends JavaPlugin {
     @Override
     public void onEnable() {
         Config config = new Config(this);
+        InventoryManager inventoryManager = new InventoryManager(this, config);
         SpawnAndLobby spawnAndLobby = new SpawnAndLobby(this, config);
         HSScoreboard scoreboard = new HSScoreboard(this);
-        Start start = new Start(this, scoreboard, spawnAndLobby);
+        Start start = new Start(this, scoreboard, spawnAndLobby, inventoryManager);
         Game game = new Game(this, start);
-        End end = new End(start, game, scoreboard, spawnAndLobby);
+        End end = new End(start, game, scoreboard, spawnAndLobby, inventoryManager);
         start.setGame(game);
         start.setEnd(end);
-
         Border border = new Border(this, config);
 
 

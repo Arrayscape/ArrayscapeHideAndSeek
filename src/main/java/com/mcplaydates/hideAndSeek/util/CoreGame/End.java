@@ -1,6 +1,7 @@
 package com.mcplaydates.hideAndSeek.util.CoreGame;
 
 import com.mcplaydates.hideAndSeek.util.HSScoreboard;
+import com.mcplaydates.hideAndSeek.util.InventoryManager;
 import com.mcplaydates.hideAndSeek.util.SpawnAndLobby;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -12,11 +13,13 @@ public class End {
     Game game;
     HSScoreboard hsScoreboard;
     SpawnAndLobby spawnAndLobby;
-    public End(Start start, Game game, HSScoreboard hsScoreboard, SpawnAndLobby spawnAndLobby){
+    InventoryManager inventoryManager;
+    public End(Start start, Game game, HSScoreboard hsScoreboard, SpawnAndLobby spawnAndLobby, InventoryManager inventoryManager){
         this.start = start;
         this.game = game;
         this.hsScoreboard = hsScoreboard;
         this.spawnAndLobby = spawnAndLobby;
+        this.inventoryManager = inventoryManager;
     }
     public void checkGameOver(){
         if(start.getHiders().isEmpty()){
@@ -43,6 +46,7 @@ public class End {
             game.clearAllPotionEffects(player);
             player.sendTitle("Game Over!", "Everyone Was Found!", 10, 100, 20);
             player.teleport(lobbyLocation);
+            inventoryManager.giveBackInventory(player.getName());
         }
     }
 }

@@ -2,6 +2,7 @@ package com.mcplaydates.hideAndSeek.util.CoreGame;
 
 import com.mcplaydates.hideAndSeek.HideAndSeek;
 import com.mcplaydates.hideAndSeek.util.HSScoreboard;
+import com.mcplaydates.hideAndSeek.util.InventoryManager;
 import com.mcplaydates.hideAndSeek.util.SpawnAndLobby;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,7 +28,7 @@ public class Start {
     End end;
     SpawnAndLobby spawnAndLobby;
     Location startLocation;
-
+    InventoryManager inventoryManager;
     ScoreboardManager manager;
     Scoreboard board;
     HSScoreboard hsScoreboard;
@@ -35,10 +36,11 @@ public class Start {
     Team seekerTeam;
     boolean isHidingPhase;
     boolean PVP;
-    public Start(HideAndSeek hs, HSScoreboard hsScoreboard, SpawnAndLobby spawnAndLobby){
+    public Start(HideAndSeek hs, HSScoreboard hsScoreboard, SpawnAndLobby spawnAndLobby, InventoryManager inventoryManager){
         this.hs = hs;
         this.hsScoreboard = hsScoreboard;
         this.spawnAndLobby = spawnAndLobby;
+        this.inventoryManager = inventoryManager;
     }
 
     public void setGame(Game game){
@@ -55,6 +57,8 @@ public class Start {
         for(Player player : Bukkit.getOnlinePlayers()){
             game.clearAllPotionEffects(player);
             player.teleport(startLocation);
+            inventoryManager.getInventory(player);
+            player.getInventory().clear();
         }
         makeTeams();
         game.hidingPhaseStart();
@@ -109,6 +113,7 @@ public class Start {
         Player seeker = hiders.get(randomPlayer);
         hiders.remove(seeker);
         seekers.add(seeker);
+        inventoryManager.giveSeekerInventory(seeker);
         seeker.sendMessage("You're the Seeker!");
         return seeker;
     }
@@ -132,6 +137,7 @@ public class Start {
         if(lobbyLocation == null)
             lobbyLocation = this.getStartLocation();
         player.teleport(lobbyLocation);
+        inventoryManager.giveBackInventory(player.getName());
 
         // Ensures there will be at least 1 seeker.
         if(seekers.isEmpty() && !hiders.isEmpty()){

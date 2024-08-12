@@ -23,4 +23,8 @@ public class Config {
     public Object getConfig(String path){
         return file.get(path);
     }
+
+    public Object getConfigList(String path){
+        return file.getList(path);
+    }
 }

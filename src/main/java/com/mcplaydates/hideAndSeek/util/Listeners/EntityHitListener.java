@@ -4,6 +4,7 @@ import com.mcplaydates.hideAndSeek.HideAndSeek;
 import com.mcplaydates.hideAndSeek.util.CoreGame.End;
 import com.mcplaydates.hideAndSeek.util.CoreGame.Game;
 import com.mcplaydates.hideAndSeek.util.CoreGame.Start;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -32,6 +33,12 @@ public class EntityHitListener implements Listener {
                 Player defender = (Player) event.getEntity();
 
                 if (start.isSeeker(attacker) && start.isHider(defender)) {
+                    start.setHidertoSeeker(defender);
+                    end.checkGameOver();
+                }
+            }else if (event.getDamager() instanceof Arrow && event.getEntity() instanceof Player){
+                Player defender = (Player) event.getEntity();
+                if(start.isHider(defender)){
                     start.setHidertoSeeker(defender);
                     end.checkGameOver();
                 }
