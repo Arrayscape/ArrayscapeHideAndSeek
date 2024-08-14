@@ -37,7 +37,7 @@ public class CommandHs implements CommandExecutor{
                 player.sendMessage("Game Started");
                 border.startBorder();
 
-                if(!border.getTrackingBorder() || border.isInBoarder(player.getLocation())){
+                if(spawnAndLobby.checkForSpawn() != null || !border.getTrackingBorder() || border.isInBoarder(player.getLocation())){
                     start.startGame(player);
                 }else{
                     player.sendMessage("You're not in the border!");
@@ -73,6 +73,10 @@ public class CommandHs implements CommandExecutor{
                 player.sendMessage("Border has been erased!");
             }
             if(args.length > 0 && args[0].equalsIgnoreCase("setspawn") && player.isOp()){
+                if(!border.isInBoarder(player.getLocation())){
+                    player.sendMessage("Cannot set spawn here. You are not in the border.");
+                    return true;
+                }
                 spawnAndLobby.setSpawnLocation(player.getLocation());
                 player.sendMessage("Spawn Set!");
             }
