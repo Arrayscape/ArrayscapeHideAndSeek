@@ -5,5 +5,6 @@ corner2:
   x: 
   z:
 spawn:
-
+hidingtime: 60
+seekingtime: 300
 

@@ -61,8 +61,8 @@ public class Start {
             player.getInventory().clear();
         }
         makeTeams();
-        game.hidingPhaseStart();
         hsScoreboard.makeScoreBoard(board);
+        game.hidingPhaseStart();
         hsScoreboard.updateScoreboard(hiders.size(), seekers.size());
         end.checkGameOver();
     }

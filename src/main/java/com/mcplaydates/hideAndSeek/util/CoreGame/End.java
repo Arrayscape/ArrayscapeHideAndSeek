@@ -23,14 +23,15 @@ public class End {
     }
     public void checkGameOver(){
         if(start.getHiders().isEmpty()){
-            endGame();
+            endGame("Seekers won!");
         }
     }
 
-    public void endGame(){
+    public void endGame(String message){
         if(!start.isHidingPhase && !game.getGameRunning()){
             return;
         }
+        game.cancelScheduledTasks();
         start.removeTeams();
         hsScoreboard.disableScoreboard();
         game.setGameRunning(false);
@@ -44,7 +45,7 @@ public class End {
 
         for(Player player : Bukkit.getOnlinePlayers()){
             game.clearAllPotionEffects(player);
-            player.sendTitle("Game Over!", "Everyone Was Found!", 10, 100, 20);
+            player.sendTitle("Game Over!", message, 10, 100, 20);
             player.teleport(lobbyLocation);
             inventoryManager.giveBackInventory(player.getName());
         }

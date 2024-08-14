@@ -57,7 +57,6 @@ public class InventoryManager {
         ArrayList<ItemStack> seekerItems = null;
         try{
             seekerItems = (ArrayList<ItemStack>) config.getCustomConfigList(("seekeritems"));
-            System.out.println("Seek"+seekerItems);
         }catch (Exception e){
             System.out.println(e);
         }
@@ -73,7 +72,6 @@ public class InventoryManager {
         ArrayList<ItemStack> hiderItems = null;
         try{
             hiderItems = (ArrayList<ItemStack>) config.getCustomConfigList("hideritems");
-            System.out.println("hide"+hiderItems);
         }catch (Exception e){
             System.out.println(e);
         }

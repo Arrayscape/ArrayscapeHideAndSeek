@@ -15,14 +15,16 @@ public class CommandHs implements CommandExecutor{
     Border border;
     SpawnAndLobby spawnAndLobby;
     InventoryManager inventoryManager;
+    Config config;
 
-    public CommandHs(Start start, Game game, End end, Border border, SpawnAndLobby spawnAndLobby, InventoryManager inventoryManager){
+    public CommandHs(Start start, Game game, End end, Border border, SpawnAndLobby spawnAndLobby, InventoryManager inventoryManager, Config config){
         this.start = start;
         this.game = game;
         this.end = end;
         this.border = border;
         this.spawnAndLobby = spawnAndLobby;
         this.inventoryManager = inventoryManager;
+        this.config = config;
     }
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -44,12 +46,8 @@ public class CommandHs implements CommandExecutor{
                 }
             }
             if(args.length > 0 && args[0].equalsIgnoreCase("endgame") && player.isOp()){
-                if(start.getIsHidingPhase())
-                    player.sendMessage("Cannot end the game in hiding phase. Please wait until after.");
-                else{
-                    player.sendMessage("Ending Game");
-                    end.endGame();
-                }
+                player.sendMessage("Ending Game");
+                end.endGame("Game Over!");
             }
             if(args.length > 0 && args[0].equalsIgnoreCase("exit")){
                 if(!(start.getIsHidingPhase() || game.getGameRunning())){
@@ -99,6 +97,26 @@ public class CommandHs implements CommandExecutor{
             if(args.length > 1 && args[1].equalsIgnoreCase("setseekerinventory") && player.isOp()){
                 inventoryManager.setSeekerInventory(player);
                 player.sendMessage("You have set seeker's inventory!");
+
+            }
+            if(args.length > 1 && args[1].equalsIgnoreCase("setseektime") && player.isOp()){
+                try{
+                    int time = Integer.parseInt(args[2]);
+                    config.setConfig("seekingtime", time);
+                    player.sendMessage("You have set the seeking time to " + time + " seconds!");
+                }catch (Exception e){
+                    player.sendMessage("Not an integer!");
+                }
+
+            }
+            if(args.length > 1 && args[1].equalsIgnoreCase("sethidetime") && player.isOp()){
+                try{
+                    int time = Integer.parseInt(args[2]);
+                    config.setConfig("hidingtime", time);
+                    player.sendMessage("You have set the hiding time to " + time + " seconds!");
+                }catch (Exception e){
+                    player.sendMessage("Not an integer!");
+                }
 
             }
         }

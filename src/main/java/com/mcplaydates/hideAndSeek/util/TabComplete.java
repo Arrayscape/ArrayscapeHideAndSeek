@@ -20,7 +20,7 @@ public class TabComplete implements TabCompleter {
         else if(args.length == 2 && args[0].equals("admin"))
             options = new ArrayList<>(Arrays.asList("setcorner1", "setcorner2",
                     "eraseborder", "setspawn", "setlobby", "erasespawn", "eraselobby",
-                    "sethiderinventory", "setseekerinventory"));
+                    "sethiderinventory", "setseekerinventory", "setseektime", "sethidetime"));
         return options;
     }
 }

@@ -18,8 +18,9 @@ public final class HideAndSeek extends JavaPlugin {
         SpawnAndLobby spawnAndLobby = new SpawnAndLobby(this, config);
         HSScoreboard scoreboard = new HSScoreboard(this);
         Start start = new Start(this, scoreboard, spawnAndLobby, inventoryManager);
-        Game game = new Game(this, start);
+        Game game = new Game(this, start, config, scoreboard);
         End end = new End(start, game, scoreboard, spawnAndLobby, inventoryManager);
+        game.setEnd(end);
         start.setGame(game);
         start.setEnd(end);
         Border border = new Border(this, config);
@@ -29,7 +30,7 @@ public final class HideAndSeek extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new EntityHitListener(this, start, game, end), this);
         this.getServer().getPluginManager().registerEvents(new PlayerLeaveListener(game, end), this);
         this.getCommand("hs").setTabCompleter(new TabComplete());
-        this.getCommand("hs").setExecutor(new CommandHs(start, game, end, border, spawnAndLobby, inventoryManager));
+        this.getCommand("hs").setExecutor(new CommandHs(start, game, end, border, spawnAndLobby, inventoryManager, config));
     }
 
     @Override
