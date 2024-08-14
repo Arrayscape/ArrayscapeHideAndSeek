@@ -5,26 +5,5 @@ corner2:
   x: 
   z:
 spawn:
-# nulls account for spaces in inventory.
-#seekeritems:
-#  - ==: org.bukkit.inventory.ItemStack
-#    v: 3953
-#    type: BOW
-#    meta:
-#      ==: ItemMeta
-#      meta-type: UNSPECIFIC
-#      enchants:
-#        minecraft:infinity: 1
-#        minecraft:unbreaking: 3
-#  - null
-#  - null
-#  - null
-#  - null
-#  - null
-#  - null
-#  - null
-#  - null
-#  - ==: org.bukkit.inventory.ItemStack
-#    v: 3953
-#    type: ARROW
+
 

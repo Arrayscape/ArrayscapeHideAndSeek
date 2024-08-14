@@ -99,6 +99,7 @@ public class Start {
             hiderTeam.addEntry(player.getName());
             player.setScoreboard(hiderTeam.getScoreboard());
             playerTeamMap.put(player.getName(), "hider");
+            inventoryManager.giveHiderInventory(player);
         }
         for(Player player : seekers){
             seekerTeam.addEntry(player.getName());

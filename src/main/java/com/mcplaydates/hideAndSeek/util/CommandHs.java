@@ -14,13 +14,15 @@ public class CommandHs implements CommandExecutor{
     End end;
     Border border;
     SpawnAndLobby spawnAndLobby;
+    InventoryManager inventoryManager;
 
-    public CommandHs(Start start, Game game, End end, Border border, SpawnAndLobby spawnAndLobby){
+    public CommandHs(Start start, Game game, End end, Border border, SpawnAndLobby spawnAndLobby, InventoryManager inventoryManager){
         this.start = start;
         this.game = game;
         this.end = end;
         this.border = border;
         this.spawnAndLobby = spawnAndLobby;
+        this.inventoryManager = inventoryManager;
     }
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -85,6 +87,15 @@ public class CommandHs implements CommandExecutor{
             if(args.length > 0 && args[0].equalsIgnoreCase("eraselobby") && player.isOp()){
                 spawnAndLobby.eraseLobby();
                 player.sendMessage("Lobby has been erased!");
+            }
+            if(args.length > 0 && args[0].equalsIgnoreCase("sethiderinventory") && player.isOp()){
+                inventoryManager.setHiderInventory(player);
+                player.sendMessage("You have set hider's inventory!");
+            }
+            if(args.length > 0 && args[0].equalsIgnoreCase("setseekerinventory") && player.isOp()){
+                inventoryManager.setSeekerInventory(player);
+                player.sendMessage("You have set seeker's inventory!");
+
             }
         }
         return true;
