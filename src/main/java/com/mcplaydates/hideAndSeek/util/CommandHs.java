@@ -60,19 +60,19 @@ public class CommandHs implements CommandExecutor{
                 end.checkGameOver();
                 player.sendMessage("You have exited the game");
             }
-            if(args.length > 0 && args[0].equalsIgnoreCase("setcorner1") && player.isOp()){
+            if(args.length > 1 && args[1].equalsIgnoreCase("setcorner1") && player.isOp()){
                 border.setLocation(1, player.getLocation());
                 player.sendMessage("Corner 1 Set!");
             }
-            if(args.length > 0 && args[0].equalsIgnoreCase("setcorner2") && player.isOp()){
+            if(args.length > 1 && args[1].equalsIgnoreCase("setcorner2") && player.isOp()){
                 border.setLocation(2, player.getLocation());
                 player.sendMessage("Corner 2 Set!");
             }
-            if(args.length > 0 && args[0].equalsIgnoreCase("eraseborder") && player.isOp()){
+            if(args.length > 1 && args[1].equalsIgnoreCase("eraseborder") && player.isOp()){
                 border.eraseBoarder();
                 player.sendMessage("Border has been erased!");
             }
-            if(args.length > 0 && args[0].equalsIgnoreCase("setspawn") && player.isOp()){
+            if(args.length > 1 && args[1].equalsIgnoreCase("setspawn") && player.isOp()){
                 if(!border.isInBoarder(player.getLocation())){
                     player.sendMessage("Cannot set spawn here. You are not in the border.");
                     return true;
@@ -80,23 +80,23 @@ public class CommandHs implements CommandExecutor{
                 spawnAndLobby.setSpawnLocation(player.getLocation());
                 player.sendMessage("Spawn Set!");
             }
-            if(args.length > 0 && args[0].equalsIgnoreCase("erasespawn") && player.isOp()){
+            if(args.length > 1 && args[1].equalsIgnoreCase("erasespawn") && player.isOp()){
                 spawnAndLobby.eraseSpawn();
                 player.sendMessage("Spawn has been erased!");
             }
-            if(args.length > 0 && args[0].equalsIgnoreCase("setlobby") && player.isOp()){
+            if(args.length > 1 && args[1].equalsIgnoreCase("setlobby") && player.isOp()){
                 spawnAndLobby.setLobbyLocation(player.getLocation());
                 player.sendMessage("Lobby Set!");
             }
-            if(args.length > 0 && args[0].equalsIgnoreCase("eraselobby") && player.isOp()){
+            if(args.length > 1 && args[1].equalsIgnoreCase("eraselobby") && player.isOp()){
                 spawnAndLobby.eraseLobby();
                 player.sendMessage("Lobby has been erased!");
             }
-            if(args.length > 0 && args[0].equalsIgnoreCase("sethiderinventory") && player.isOp()){
+            if(args.length > 1 && args[1].equalsIgnoreCase("sethiderinventory") && player.isOp()){
                 inventoryManager.setHiderInventory(player);
                 player.sendMessage("You have set hider's inventory!");
             }
-            if(args.length > 0 && args[0].equalsIgnoreCase("setseekerinventory") && player.isOp()){
+            if(args.length > 1 && args[1].equalsIgnoreCase("setseekerinventory") && player.isOp()){
                 inventoryManager.setSeekerInventory(player);
                 player.sendMessage("You have set seeker's inventory!");
 
