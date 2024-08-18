@@ -2,7 +2,6 @@ package com.mcplaydates.hideAndSeek.util;
 
 import com.mcplaydates.hideAndSeek.HideAndSeek;
 import org.bukkit.Location;
-import org.bukkit.configuration.file.FileConfiguration;
 
 public class Border {
     HideAndSeek hs;
@@ -27,7 +26,7 @@ public class Border {
         }
     }
 
-    public void eraseBoarder(){
+    public void eraseBorder(){
         config.setConfig("corner1.x", null);
         config.setConfig("corner1.z", null);
         config.setConfig("corner2.x", null);
@@ -47,7 +46,7 @@ public class Border {
         }
     }
 
-    public boolean isInBoarder(Location playerLocation){
+    public boolean isInBorder(Location playerLocation){
         return playerLocation.getBlockX() >= minX && playerLocation.getBlockX() <= maxX &&
                 playerLocation.getBlockZ() >= minZ && playerLocation.getBlockZ() <= maxZ;
 

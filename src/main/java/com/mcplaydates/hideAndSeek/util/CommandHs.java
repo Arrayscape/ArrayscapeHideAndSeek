@@ -3,6 +3,8 @@ package com.mcplaydates.hideAndSeek.util;
 import com.mcplaydates.hideAndSeek.util.CoreGame.End;
 import com.mcplaydates.hideAndSeek.util.CoreGame.Game;
 import com.mcplaydates.hideAndSeek.util.CoreGame.Start;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -32,14 +34,19 @@ public class CommandHs implements CommandExecutor{
             Player player = (Player) sender;
 
             if(args.length > 0 && args[0].equalsIgnoreCase("start") && player.isOp()){
-//                if(Bukkit.getOnlinePlayers().size() <= 1){
-//                    player.sendMessage("Cannot start the game. Too Few Players. (Minimum is 2)");
-//                    return true;
-//                }
+                int playerCount = 0;
+                for(Player onlinePlayer : Bukkit.getOnlinePlayers()){
+                    if(onlinePlayer.getGameMode() != GameMode.SPECTATOR)
+                        playerCount++;
+                }
+                if(playerCount <= 1){
+                    player.sendMessage("Cannot start the game. Too Few Players. (Minimum is 2)");
+                    return true;
+                }
                 player.sendMessage("Game Started");
                 border.startBorder();
 
-                if(spawnAndLobby.checkForSpawn() != null || !border.getTrackingBorder() || border.isInBoarder(player.getLocation())){
+                if(spawnAndLobby.checkForSpawn() != null || !border.getTrackingBorder() || border.isInBorder(player.getLocation())){
                     start.startGame(player);
                 }else{
                     player.sendMessage("You're not in the border!");
@@ -67,11 +74,12 @@ public class CommandHs implements CommandExecutor{
                 player.sendMessage("Corner 2 Set!");
             }
             if(args.length > 1 && args[1].equalsIgnoreCase("eraseborder") && player.isOp()){
-                border.eraseBoarder();
+                border.eraseBorder();
                 player.sendMessage("Border has been erased!");
             }
             if(args.length > 1 && args[1].equalsIgnoreCase("setspawn") && player.isOp()){
-                if(!border.isInBoarder(player.getLocation())){
+                border.startBorder();
+                if(border.isTrackingBorder && !border.isInBorder(player.getLocation())){
                     player.sendMessage("Cannot set spawn here. You are not in the border.");
                     return true;
                 }

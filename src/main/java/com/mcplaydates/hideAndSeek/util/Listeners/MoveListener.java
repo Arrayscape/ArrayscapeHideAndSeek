@@ -30,7 +30,7 @@ public class MoveListener implements Listener {
 
         if(border.getTrackingBorder() && (game.getGameRunning() || start.getIsHidingPhase())){
             // triggers when the player moves out of border.
-            if ((border.isInBoarder(event.getFrom()) && !border.isInBoarder(event.getTo()))) {
+            if ((border.isInBorder(event.getFrom()) && !border.isInBorder(event.getTo()))) {
                 event.setCancelled(true);
             }
         }
