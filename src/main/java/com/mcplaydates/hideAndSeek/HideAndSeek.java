@@ -29,7 +29,7 @@ public final class HideAndSeek extends JavaPlugin {
 
         this.getServer().getPluginManager().registerEvents(new MoveListener(this, border, game, start), this);
         this.getServer().getPluginManager().registerEvents(new EntityHitListener(this, start, game, end), this);
-        this.getServer().getPluginManager().registerEvents(new PlayerLeaveListener(game, end), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerLeaveListener(start, game, end), this);
         this.getCommand("hs").setTabCompleter(new TabComplete());
         this.getCommand("hs").setExecutor(new CommandHs(start, game, end, border, spawnAndLobby, inventoryManager, config));
     }

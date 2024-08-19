@@ -15,7 +15,7 @@ public class TabComplete implements TabCompleter {
         if(!player.isOp())
             options = new ArrayList<>(Arrays.asList("exit"));
         else if(args.length == 1)
-            options = new ArrayList<>(Arrays.asList("start", "exit", "endgame"));
+            options = new ArrayList<>(Arrays.asList("start", "exit", "endgame", "admin"));
 
         else if(args.length == 2 && args[0].equals("admin"))
             options = new ArrayList<>(Arrays.asList("setcorner1", "setcorner2",

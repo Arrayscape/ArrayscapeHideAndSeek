@@ -215,4 +215,18 @@ public class Start {
             seekerTeam.removeEntry(player);
         }
     }
+
+    /**
+     * Gets the total number of players not including spectators.
+     * @return
+     *  total players - Spectators
+     */
+    public int getOnlinePlayers(){
+        int playerCount = 0;
+        for(Player onlinePlayer : Bukkit.getOnlinePlayers()){
+            if(onlinePlayer.getGameMode() != GameMode.SPECTATOR)
+                playerCount++;
+        }
+        return playerCount;
+    }
 }

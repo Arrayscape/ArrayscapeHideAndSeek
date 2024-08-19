@@ -34,27 +34,27 @@ public class CommandHs implements CommandExecutor{
             Player player = (Player) sender;
 
             if(args.length > 0 && args[0].equalsIgnoreCase("start") && player.isOp()){
-                int playerCount = 0;
-                for(Player onlinePlayer : Bukkit.getOnlinePlayers()){
-                    if(onlinePlayer.getGameMode() != GameMode.SPECTATOR)
-                        playerCount++;
-                }
-                if(playerCount <= 1){
+                if(start.getOnlinePlayers() <= 1){
                     player.sendMessage("Cannot start the game. Too Few Players. (Minimum is 2)");
                     return true;
                 }
-                player.sendMessage("Game Started");
-                border.startBorder();
-
+                // If game is already running, must end game first or else scoreboard breaks.
+                if(start.getIsHidingPhase() || game.getGameRunning()){
+                    end.endGame("Game Over");
+                }
                 if(spawnAndLobby.checkForSpawn() != null || !border.getTrackingBorder() || border.isInBorder(player.getLocation())){
+                    player.sendMessage("Game Started");
+                    border.startBorder();
                     start.startGame(player);
                 }else{
                     player.sendMessage("You're not in the border!");
                 }
+                return true;
             }
             if(args.length > 0 && args[0].equalsIgnoreCase("endgame") && player.isOp()){
                 player.sendMessage("Ending Game");
                 end.endGame("Game Over!");
+                return true;
             }
             if(args.length > 0 && args[0].equalsIgnoreCase("exit")){
                 if(!(start.getIsHidingPhase() || game.getGameRunning())){
@@ -64,18 +64,24 @@ public class CommandHs implements CommandExecutor{
                 start.removePlayer(player);
                 end.checkGameOver();
                 player.sendMessage("You have exited the game");
+                return true;
             }
             if(args.length > 1 && args[1].equalsIgnoreCase("setcorner1") && player.isOp()){
                 border.setLocation(1, player.getLocation());
                 player.sendMessage("Corner 1 Set!");
+                return true;
             }
             if(args.length > 1 && args[1].equalsIgnoreCase("setcorner2") && player.isOp()){
                 border.setLocation(2, player.getLocation());
                 player.sendMessage("Corner 2 Set!");
+                return true;
+
             }
             if(args.length > 1 && args[1].equalsIgnoreCase("eraseborder") && player.isOp()){
                 border.eraseBorder();
                 player.sendMessage("Border has been erased!");
+                return true;
+
             }
             if(args.length > 1 && args[1].equalsIgnoreCase("setspawn") && player.isOp()){
                 border.startBorder();
@@ -85,27 +91,33 @@ public class CommandHs implements CommandExecutor{
                 }
                 spawnAndLobby.setSpawnLocation(player.getLocation());
                 player.sendMessage("Spawn Set!");
+                return true;
+
             }
             if(args.length > 1 && args[1].equalsIgnoreCase("erasespawn") && player.isOp()){
                 spawnAndLobby.eraseSpawn();
                 player.sendMessage("Spawn has been erased!");
+                return true;
             }
             if(args.length > 1 && args[1].equalsIgnoreCase("setlobby") && player.isOp()){
                 spawnAndLobby.setLobbyLocation(player.getLocation());
                 player.sendMessage("Lobby Set!");
+                return true;
             }
             if(args.length > 1 && args[1].equalsIgnoreCase("eraselobby") && player.isOp()){
                 spawnAndLobby.eraseLobby();
                 player.sendMessage("Lobby has been erased!");
+                return true;
             }
             if(args.length > 1 && args[1].equalsIgnoreCase("sethiderinventory") && player.isOp()){
                 inventoryManager.setHiderInventory(player);
                 player.sendMessage("You have set hider's inventory!");
+                return true;
             }
             if(args.length > 1 && args[1].equalsIgnoreCase("setseekerinventory") && player.isOp()){
                 inventoryManager.setSeekerInventory(player);
                 player.sendMessage("You have set seeker's inventory!");
-
+                return true;
             }
             if(args.length > 1 && args[1].equalsIgnoreCase("setseektime") && player.isOp()){
                 try{
@@ -115,7 +127,7 @@ public class CommandHs implements CommandExecutor{
                 }catch (Exception e){
                     player.sendMessage("Not an integer!");
                 }
-
+                return true;
             }
             if(args.length > 1 && args[1].equalsIgnoreCase("sethidetime") && player.isOp()){
                 try{
@@ -125,11 +137,9 @@ public class CommandHs implements CommandExecutor{
                 }catch (Exception e){
                     player.sendMessage("Not an integer!");
                 }
-
+                return true;
             }
         }
         return true;
     }
-
-
 }
