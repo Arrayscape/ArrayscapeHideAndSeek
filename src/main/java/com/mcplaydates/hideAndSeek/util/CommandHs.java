@@ -66,6 +66,24 @@ public class CommandHs implements CommandExecutor{
                 player.sendMessage("You have exited the game");
                 return true;
             }
+            if(args.length > 0 && args[0].equalsIgnoreCase("endhidetime")){
+                if(!start.getIsHidingPhase()){
+                    player.sendMessage("It is not hiding phase!");
+                    return true;
+                }
+                game.endHideTime();
+                player.sendMessage("Ended hide time.");
+                return true;
+            }
+            if(args.length > 0 && args[0].equalsIgnoreCase("addhidetime")){
+                if(!start.getIsHidingPhase()){
+                    player.sendMessage("It is not hiding phase!");
+                    return true;
+                }
+                game.addHideTime();
+                player.sendMessage("Added 10 seconds!");
+                return true;
+            }
             if(args.length > 1 && args[1].equalsIgnoreCase("setcorner1") && player.isOp()){
                 border.setLocation(1, player.getLocation());
                 player.sendMessage("Corner 1 Set!");

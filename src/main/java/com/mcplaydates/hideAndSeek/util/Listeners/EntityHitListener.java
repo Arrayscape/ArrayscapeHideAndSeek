@@ -28,22 +28,29 @@ public class EntityHitListener implements Listener {
             return;
         }
         if(game.getGameRunning()) {
-            if (event.getDamager() instanceof Player && event.getEntity() instanceof Player) {
-                Player attacker = (Player) event.getDamager();
-                Player defender = (Player) event.getEntity();
-
-                if (start.isSeeker(attacker) && start.isHider(defender)) {
-                    start.setHidertoSeeker(defender);
-                    end.checkGameOver();
-                }
-            }else if (event.getDamager() instanceof Arrow && event.getEntity() instanceof Player){
-                Player defender = (Player) event.getEntity();
-                if(start.isHider(defender)){
-                    start.setHidertoSeeker(defender);
-                    end.checkGameOver();
-                }
+            Player defender = null;
+            Player attacker = null;
+            if(event.getEntity() instanceof Player){
+                defender = (Player) event.getEntity();
             }
-            event.setCancelled(true);
+            if(event.getDamager() instanceof Player){
+                attacker = (Player) event.getDamager();
+            } else if(event.getDamager() instanceof Arrow && (((Arrow) event.getDamager()).getShooter() instanceof Player)){
+                attacker = (Player) (((Arrow) event.getDamager()).getShooter());
+            }
+
+            if(defender == null || attacker == null || !(start.isSeeker(attacker) && start.isHider(defender))){
+                event.setCancelled(true);
+                return;
+            }
+
+            attacker.sendTitle( "You Tagged", defender.getName() + "!", 10, 100, 20);
+            defender.sendTitle("Tagged by",attacker.getName() + "!", 10, 100, 20);
+            start.setHidertoSeeker(defender);
+            end.checkGameOver();
+
+
         }
+        event.setCancelled(true);
     }
 }

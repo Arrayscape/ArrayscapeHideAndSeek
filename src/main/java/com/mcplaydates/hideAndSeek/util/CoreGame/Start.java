@@ -191,13 +191,11 @@ public class Start {
     public void setHidertoSeeker(Player player){
         if(!isHidingPhase)
             game.clearAllPotionEffects(player);
-       else{
-           //tp them to oringal spot
-            // blindness / movement (DONE)?
-        }
+
         hiders.remove(player);
         seekers.add(player);
         playerTeamMap.put(player.getName(),"seeker");
+        inventoryManager.giveSeekerInventory(player);
         // switch teams
         hiderTeam.removeEntry(player.getName());
         seekerTeam.addEntry(player.getName());

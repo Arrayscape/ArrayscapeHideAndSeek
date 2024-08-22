@@ -118,4 +118,15 @@ public class Game {
             player.removePotionEffect(effect.getType());
         }
     }
+
+    public void addHideTime(){
+        if(start.getIsHidingPhase())
+            hidingTimeLeft += 10;
+    }
+
+    public void endHideTime(){
+        if(start.getIsHidingPhase()){
+            hidingTimeLeft = 0;
+        }
+    }
 }

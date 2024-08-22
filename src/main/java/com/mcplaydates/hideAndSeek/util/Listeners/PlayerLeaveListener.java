@@ -28,7 +28,9 @@ public class PlayerLeaveListener implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event){
-        start.removePlayer(event.getEntity());
-        end.checkGameOver();
+        if(start.getIsHidingPhase() || game.getGameRunning()){
+            start.removePlayer(event.getEntity());
+            end.checkGameOver();
+        }
     }
 }
