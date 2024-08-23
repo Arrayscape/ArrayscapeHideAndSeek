@@ -49,8 +49,8 @@ public class EntityHitListener implements Listener {
             start.setHidertoSeeker(defender);
             end.checkGameOver();
 
-
+            event.setCancelled(true);
         }
-        event.setCancelled(true);
+
     }
 }
