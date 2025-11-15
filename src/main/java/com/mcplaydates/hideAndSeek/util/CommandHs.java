@@ -3,6 +3,8 @@ package com.mcplaydates.hideAndSeek.util;
 import com.mcplaydates.hideAndSeek.util.CoreGame.End;
 import com.mcplaydates.hideAndSeek.util.CoreGame.Game;
 import com.mcplaydates.hideAndSeek.util.CoreGame.Start;
+
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -43,15 +45,30 @@ public class CommandHs implements CommandExecutor{
             return true;
         }
 
-        if(args[0].equalsIgnoreCase("start") && isOp){
+        if(args[0].equalsIgnoreCase("start") && isOp) {
             if(start.getOnlinePlayers() <= 1) {
-                sender.sendMessage("Cannot start the game. Too Few Players. (Minimum is 2)");
+                if (player == null) {
+                    Bukkit.broadcastMessage("Cannot start the game. Too Few Players. (Minimum is 2)");
+                } else {
+                    sender.sendMessage("Cannot start the game. Too Few Players. (Minimum is 2)");
+                }
+
                 return true;
             }
+
+            sender.sendMessage(String.format("gameRunning %b", game.getGameRunning()));
+
             // If game is already running, must end game first or else scoreboard breaks.
             if(start.getIsHidingPhase() || game.getGameRunning()) {
-                end.endGame("Game Over");
+                if (player == null) {
+                    Bukkit.broadcastMessage("Game in progress already");
+                } else {
+                    sender.sendMessage("Game in progress already");
+                }
+
+                return true;
             }
+
             if(spawnAndLobby.hasSpawn() && border.hasBorder()) {
                 sender.sendMessage("Game Started");
                 border.startBorder();
@@ -59,23 +76,27 @@ public class CommandHs implements CommandExecutor{
             } else {
                 sender.sendMessage("cannot start game: missing spawn or border");
             }
+
             return true;
         }
 
         if(args[0].equalsIgnoreCase("endgame") && isOp) {
             sender.sendMessage("Ending Game");
             end.endGame("Game Over!");
+
             return true;
         }
 
         if(args[0].equalsIgnoreCase("exit")) {
             if (player == null) {
                 sender.sendMessage("you're not a player!");
+
                 return true;
             }
 
             if(!(start.getIsHidingPhase() || game.getGameRunning())){
                 player.sendMessage("You are not in a game!");
+
                 return true;
             }
 
@@ -89,6 +110,7 @@ public class CommandHs implements CommandExecutor{
         if(args[0].equalsIgnoreCase("endhidetime") && isOp) {
             if(!start.getIsHidingPhase()) {
                 sender.sendMessage("It is not hiding phase!");
+
                 return true;
             }
 

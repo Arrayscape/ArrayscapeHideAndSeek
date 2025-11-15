@@ -6,7 +6,6 @@ import com.mcplaydates.hideAndSeek.util.CoreGame.End;
 import com.mcplaydates.hideAndSeek.util.CoreGame.Game;
 import com.mcplaydates.hideAndSeek.util.CoreGame.Start;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
