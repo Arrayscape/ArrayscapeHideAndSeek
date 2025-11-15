@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.List;
 
 public class Config {
     FileConfiguration file;
@@ -35,11 +36,9 @@ public class Config {
         return file.getList(path);
     }
 
-    public Object getCustomConfigList(String path){
+    public List<?> getCustomConfigList(String path) {
         return itemConfig.getList(path);
     }
-
-
 
     private void createCustomItemConfig() {
         itemConfigFile = new File(hs.getDataFolder(), "ItemConfig.yml");

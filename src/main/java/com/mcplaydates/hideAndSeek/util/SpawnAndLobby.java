@@ -20,6 +20,10 @@ public class SpawnAndLobby {
         return (Location) config.getConfig("spawn");
     }
 
+    public boolean hasSpawn() {
+        return config.getConfig("spawn") != null;
+    }
+
     public void eraseSpawn(){
         config.setConfig("spawn", null);
     }

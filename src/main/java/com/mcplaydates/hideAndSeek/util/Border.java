@@ -9,7 +9,7 @@ public class Border {
     int maxX;
     int minZ;
     int maxZ;
-    boolean isTrackingBorder = false;
+    boolean hasBorder = false;
     Config config;
     public Border(HideAndSeek hs, Config config){
         this.hs = hs;
@@ -31,14 +31,14 @@ public class Border {
         config.setConfig("corner1.z", null);
         config.setConfig("corner2.x", null);
         config.setConfig("corner2.z", null);
-        isTrackingBorder = false;
+        hasBorder = false;
     }
 
     public void startBorder(){
         // Check if border exists.
         if(config.getConfig("corner1.x") != null && config.getConfig("corner1.z") != null &&
                 config.getConfig("corner2.x") != null & config.getConfig("corner2.z") != null){
-            isTrackingBorder = true;
+            hasBorder = true;
             minX = Math.min((int) config.getConfig("corner1.x"), (int) config.getConfig("corner2.x"));
             maxX = Math.max((int) config.getConfig("corner1.x"), (int) config.getConfig("corner2.x"));
             minZ = Math.min((int) config.getConfig("corner1.z"), (int) config.getConfig("corner2.z"));
@@ -52,7 +52,7 @@ public class Border {
 
     }
 
-    public boolean getTrackingBorder(){
-        return isTrackingBorder;
+    public boolean hasBorder(){
+        return hasBorder;
     }
 }
