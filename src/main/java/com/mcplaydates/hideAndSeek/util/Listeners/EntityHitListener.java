@@ -1,9 +1,12 @@
 package com.mcplaydates.hideAndSeek.util.Listeners;
 
 import com.mcplaydates.hideAndSeek.HideAndSeek;
+import com.mcplaydates.hideAndSeek.util.Border;
 import com.mcplaydates.hideAndSeek.util.CoreGame.End;
 import com.mcplaydates.hideAndSeek.util.CoreGame.Game;
 import com.mcplaydates.hideAndSeek.util.CoreGame.Start;
+
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,12 +18,16 @@ public class EntityHitListener implements Listener {
     Start start;
     Game game;
     End end;
-    public EntityHitListener(HideAndSeek hs, Start start, Game game, End end){
+    Border border;
+
+    public EntityHitListener(HideAndSeek hs, Start start, Game game, End end, Border border) {
         this.hs = hs;
         this.start = start;
         this.game = game;
         this.end = end;
+        this.border = border;
     }
+
     @EventHandler
     public void onHit(EntityDamageByEntityEvent event){
         if(start.getIsHidingPhase()){
@@ -49,8 +56,31 @@ public class EntityHitListener implements Listener {
             start.setHidertoSeeker(defender);
             end.checkGameOver();
 
-
+            event.setCancelled(true);
+            return;
         }
-        event.setCancelled(true);
+
+        if (border.hasBorder()) {
+            // game isn't in progress, we disable hits inside the arena, but not elsewhere in the world
+            Player defender = null;
+            Player attacker = null;
+            if(event.getEntity() instanceof Player){
+                defender = (Player) event.getEntity();
+            }
+            if(event.getDamager() instanceof Player){
+                attacker = (Player) event.getDamager();
+            } else if(event.getDamager() instanceof Arrow && (((Arrow) event.getDamager()).getShooter() instanceof Player)){
+                attacker = (Player) (((Arrow) event.getDamager()).getShooter());
+            }
+
+            if (defender != null && border.isInBorder(defender.getLocation())) {
+                event.setCancelled(true);
+                return;
+            }
+            if (attacker != null && border.isInBorder(attacker.getLocation())) {
+                event.setCancelled(true);
+                return;
+            }
+        }
     }
 }
