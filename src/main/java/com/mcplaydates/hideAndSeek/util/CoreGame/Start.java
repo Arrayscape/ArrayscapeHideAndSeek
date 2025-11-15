@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -49,17 +50,27 @@ public class Start {
     public void setEnd(End end){
         this.end = end;
     }
-    public void startGame(Player hostPlayer){
+    public void startGame(CommandSender sender){
+        Player hostPlayer = null;
+        if (sender instanceof Player) {
+            hostPlayer = (Player) sender;
+        }
         startLocation = spawnAndLobby.checkForSpawn();
         if(startLocation == null){
+            if (hostPlayer == null) {
+                sender.sendMessage("No spawn point set. Cannot start game from console.");
+                return;
+            }
             startLocation = hostPlayer.getLocation();
         }
+
         for(Player player : Bukkit.getOnlinePlayers()){
             game.clearAllPotionEffects(player);
             player.teleport(startLocation);
             inventoryManager.getInventory(player);
             player.getInventory().clear();
         }
+
         makeTeams();
         hsScoreboard.makeScoreBoard(board);
         game.hidingPhaseStart();

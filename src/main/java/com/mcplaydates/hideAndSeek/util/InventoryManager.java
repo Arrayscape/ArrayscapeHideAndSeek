@@ -2,12 +2,11 @@ package com.mcplaydates.hideAndSeek.util;
 
 import com.mcplaydates.hideAndSeek.HideAndSeek;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class InventoryManager {
     HideAndSeek hs;
@@ -54,12 +53,13 @@ public class InventoryManager {
     }
 
     public void giveSeekerInventory(Player player){
-        ArrayList<ItemStack> seekerItems = null;
-        try{
-            seekerItems = (ArrayList<ItemStack>) config.getCustomConfigList(("seekeritems"));
-        }catch (Exception e){
+        List<ItemStack> seekerItems = null;
+        try {
+            seekerItems = (List<ItemStack>)config.getCustomConfigList(("seekeritems"));
+        } catch (Exception e) {
             System.out.println(e);
         }
+
         if(seekerItems == null)
             return;
 
@@ -68,17 +68,18 @@ public class InventoryManager {
         }
     }
 
-    public void giveHiderInventory(Player player){
-        ArrayList<ItemStack> hiderItems = null;
-        try{
-            hiderItems = (ArrayList<ItemStack>) config.getCustomConfigList("hideritems");
-        }catch (Exception e){
+    public void giveHiderInventory(Player player) {
+        List<ItemStack> hiderItems = null;
+        try {
+            hiderItems = (List<ItemStack>) config.getCustomConfigList("hideritems");
+        } catch (Exception e) {
             System.out.println(e);
         }
+
         if(hiderItems == null)
             return;
 
-        for(int i = 0; i < hiderItems.size(); i++){
+        for(int i = 0; i < hiderItems.size(); i++) {
             player.getInventory().setItem(i, hiderItems.get(i));
         }
     }
