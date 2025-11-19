@@ -71,7 +71,6 @@ public class CommandHs implements CommandExecutor{
 
             if(spawnAndLobby.hasSpawn() && border.hasBorder()) {
                 sender.sendMessage("Game Started");
-                border.startBorder();
                 start.startGame(sender);
             } else {
                 sender.sendMessage("cannot start game: missing spawn or border");
@@ -160,9 +159,12 @@ public class CommandHs implements CommandExecutor{
         }
 
         if(args.length > 1 && args[1].equalsIgnoreCase("setspawn")) {
-            border.startBorder();
+            if(!border.hasBorder()) {
+                player.sendMessage("You must set the border first");
+                return true;
+            }
 
-            if(border.hasBorder() && !border.isInBorder(player.getLocation())) {
+            if(!border.isInBorder(player.getLocation())) {
                 player.sendMessage("Cannot set spawn here. You are not in the border.");
                 return true;
             }

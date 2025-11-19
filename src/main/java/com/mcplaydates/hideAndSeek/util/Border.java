@@ -9,50 +9,61 @@ public class Border {
     int maxX;
     int minZ;
     int maxZ;
-    boolean hasBorder = false;
     Config config;
-    public Border(HideAndSeek hs, Config config){
+
+    public Border(HideAndSeek hs, Config config) {
         this.hs = hs;
         this.config = config;
+
+        startBorder();
     }
 
-    public void setLocation(int numCorner, Location location){
-        if(numCorner == 1){
+    public void setLocation(int numCorner, Location location) {
+        if(numCorner == 1) {
             config.setConfig("corner1.x", location.getBlockX());
             config.setConfig("corner1.z", location.getBlockZ());
-        }else if(numCorner == 2){
+        } else if(numCorner == 2) {
             config.setConfig("corner2.x", location.getBlockX());
             config.setConfig("corner2.z", location.getBlockZ());
         }
     }
 
-    public void eraseBorder(){
+    public void eraseBorder() {
         config.setConfig("corner1.x", null);
         config.setConfig("corner1.z", null);
         config.setConfig("corner2.x", null);
         config.setConfig("corner2.z", null);
-        hasBorder = false;
+
+        startBorder();
     }
 
-    public void startBorder(){
+    private void startBorder() {
         // Check if border exists.
-        if(config.getConfig("corner1.x") != null && config.getConfig("corner1.z") != null &&
-                config.getConfig("corner2.x") != null & config.getConfig("corner2.z") != null){
-            hasBorder = true;
-            minX = Math.min((int) config.getConfig("corner1.x"), (int) config.getConfig("corner2.x"));
-            maxX = Math.max((int) config.getConfig("corner1.x"), (int) config.getConfig("corner2.x"));
-            minZ = Math.min((int) config.getConfig("corner1.z"), (int) config.getConfig("corner2.z"));
-            maxZ = Math.max((int) config.getConfig("corner1.z"), (int) config.getConfig("corner2.z"));
+        if (!hasBorder()) {
+            return;
         }
+
+        minX = Math.min((int) config.getConfig("corner1.x"), (int) config.getConfig("corner2.x"));
+        maxX = Math.max((int) config.getConfig("corner1.x"), (int) config.getConfig("corner2.x"));
+        minZ = Math.min((int) config.getConfig("corner1.z"), (int) config.getConfig("corner2.z"));
+        maxZ = Math.max((int) config.getConfig("corner1.z"), (int) config.getConfig("corner2.z"));
     }
 
-    public boolean isInBorder(Location playerLocation){
+    public boolean isInBorder(Location playerLocation) {
+        if (!hasBorder()) {
+            return false;
+        }
+
         return playerLocation.getBlockX() >= minX && playerLocation.getBlockX() <= maxX &&
                 playerLocation.getBlockZ() >= minZ && playerLocation.getBlockZ() <= maxZ;
-
     }
 
-    public boolean hasBorder(){
-        return hasBorder;
+    public boolean hasBorder() {
+        if(config.getConfig("corner1.x") == null || config.getConfig("corner1.z") == null
+        || config.getConfig("corner2.x") == null || config.getConfig("corner2.z") == null) {
+            return false;
+        }
+
+        return true;
     }
 }
